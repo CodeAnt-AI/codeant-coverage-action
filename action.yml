@@ -1,0 +1,65 @@
+name: 'CodeAnt AI Coverage Upload'
+description: 'Upload test coverage reports to CodeAnt AI for analysis and visualization'
+author: 'CodeAnt AI'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  access_token:
+    description: 'GitHub Access Token for authentication'
+    required: true
+  coverage_file:
+    description: 'Path to the coverage file (e.g., coverage.xml, coverage.json)'
+    required: true
+    default: 'coverage.xml'
+  api_base:
+    description: 'CodeAnt AI API base URL'
+    required: false
+    default: 'https://api.codeant.ai'
+  platform:
+    description: 'Git platform (github, gitlab, bitbucket)'
+    required: false
+    default: 'github'
+  base_url:
+    description: 'Base URL of the git platform'
+    required: false
+    default: 'https://github.com'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Fetch coverage-upload script
+      shell: bash
+      env:
+        API_BASE: ${{ inputs.api_base }}
+      run: |
+        curl -sS -X GET "${API_BASE}/pr/analysis/coverage/script/get" \
+        --output upload_coverage.sh.b64
+
+    - name: Make script executable
+      shell: bash
+      run: |
+        base64 -d upload_coverage.sh.b64 > upload_coverage.sh
+        chmod +x upload_coverage.sh
+
+    - name: Upload coverage to CodeAnt AI
+      shell: bash
+      env:
+        ACCESS_TOKEN: ${{ inputs.access_token }}
+        REPO_NAME: ${{ github.repository }}
+        COMMIT_ID: ${{ github.sha }}
+        BRANCH: ${{ github.ref_name }}
+        COVERAGE_FILE: ${{ inputs.coverage_file }}
+        PLATFORM: ${{ inputs.platform }}
+        BASE_URL: ${{ inputs.base_url }}
+      run: |
+        bash upload_coverage.sh \
+          -t "$ACCESS_TOKEN" \
+          -r "$REPO_NAME" \
+          -c "$COMMIT_ID" \
+          -f "$COVERAGE_FILE" \
+          -p "$PLATFORM" \
+          -b "$BRANCH" \
+          -u "$BASE_URL"
