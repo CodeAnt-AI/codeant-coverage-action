@@ -75,14 +75,14 @@ jobs:
       - name: Test coverage upload
         uses: ./
         with:
-          access_token: ${{ secrets.CODEANT_ACCESS_TOKEN }}
+          access_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           coverage_file: coverage.xml
 ```
 
 Run the action locally:
 
 ```bash
-act -j test --secret CODEANT_ACCESS_TOKEN=your_token_here
+act -j test --secret GITHUB_ACCESS_TOKEN=your_token_here
 ```
 
 ### 3. Test in a Real Repository
@@ -96,7 +96,7 @@ act -j test --secret CODEANT_ACCESS_TOKEN=your_token_here
 ```yaml
 - uses: CodeAnt-AI/codeant-coverage-action@v0.0.1
   with:
-    access_token: ${{ secrets.CODEANT_ACCESS_TOKEN }}
+    access_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
     coverage_file: coverage.xml
 ```
 
@@ -193,7 +193,7 @@ Set the `ACTIONS_STEP_DEBUG` secret to `true` in your repository:
 - name: Upload coverage
   uses: ./
   with:
-    access_token: ${{ secrets.CODEANT_ACCESS_TOKEN }}
+    access_token: ${{ secrets.GITHUB_ACCESS_TOKEN  }}
     coverage_file: coverage.xml
   env:
     ACTIONS_STEP_DEBUG: true
@@ -253,4 +253,4 @@ bash upload_coverage.sh \
 
 For questions or issues during development:
 - Open an issue in the repository
-- Contact: dev@codeant.ai
+- Contact: chinmay@codeant.ai

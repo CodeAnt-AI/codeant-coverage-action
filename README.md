@@ -41,7 +41,7 @@ jobs:
       - name: Upload coverage to CodeAnt AI
         uses: CodeAnt-AI/codeant-coverage-action@v0.0.1
         with:
-          access_token: ${{ secrets.CODEANT_ACCESS_TOKEN }}
+          access_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           coverage_file: coverage.xml
 ```
 
@@ -51,7 +51,7 @@ jobs:
 - name: Upload coverage to CodeAnt AI
   uses: CodeAnt-AI/codeant-coverage-action@v0.0.1
   with:
-    access_token: ${{ secrets.CODEANT_ACCESS_TOKEN }}
+    access_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
     coverage_file: coverage.json
     api_base: https://api.codeant.ai
     platform: github
@@ -109,7 +109,7 @@ Add your CodeAnt AI access token to your repository secrets:
 1. Go to your repository Settings
 2. Navigate to Secrets and variables → Actions
 3. Click "New repository secret"
-4. Name: `CODEANT_ACCESS_TOKEN`
+4. Name: `GITHUB_ACCESS_TOKEN`
 5. Value: Your CodeAnt AI access token
 
 ### 3. Configure Workflow
@@ -129,7 +129,7 @@ Add the action to your GitHub Actions workflow as shown in the usage examples ab
 Ensure the `coverage_file` path is correct and the file exists before running this action.
 
 ### Authentication failed
-Verify that your `CODEANT_ACCESS_TOKEN` is valid and has the necessary permissions.
+Verify that your `GITHUB_ACCESS_TOKEN` is valid and has the necessary permissions.
 
 ### Script execution failed
 Check that the CodeAnt AI API is accessible from your runner environment.
