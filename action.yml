@@ -40,8 +40,14 @@ runs:
 
     - name: Make script executable
       shell: bash
+      env:
+        API_BASE: ${{ inputs.api_base }}
       run: |
-        base64 -d upload_coverage.sh.b64 > upload_coverage.sh
+        if [ "$API_BASE" = "https://api.codeant.ai" ]; then
+          base64 -d upload_coverage.sh.b64 > upload_coverage.sh
+        else
+          mv upload_coverage.sh.b64 upload_coverage.sh
+        fi
         chmod +x upload_coverage.sh
 
     - name: Upload coverage to CodeAnt AI
