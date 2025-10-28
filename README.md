@@ -57,6 +57,7 @@ jobs:
     platform: github
     base_url: https://github.com
     module: backend  # Optional: for monorepo setups
+    module_path: services/backend  # Optional: path for resolving files in monorepo
 ```
 
 ## Inputs
@@ -69,6 +70,7 @@ jobs:
 | `platform` | Git platform (github, gitlab, bitbucket) | No | `github` |
 | `base_url` | Base URL of the git platform | No | `https://github.com` |
 | `module` | Module name for monorepo setups (optional) | No | `''` |
+| `module_path` | Module path for resolving files in monorepo (e.g., services/backend, defaults to module if not provided) | No | `''` |
 
 ## Supported Coverage Formats
 
