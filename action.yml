@@ -30,6 +30,10 @@ inputs:
     description: 'Module name for monorepo setups (optional)'
     required: false
     default: ''
+  module_path:
+    description: 'Module path for resolving files in monorepo (e.g., services/backend, defaults to module if not provided)'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -65,6 +69,7 @@ runs:
         PLATFORM: ${{ inputs.platform }}
         BASE_URL: ${{ inputs.base_url }}
         MODULE: ${{ inputs.module }}
+        MODULE_PATH: ${{ inputs.module_path }}
       run: |
         bash upload_coverage.sh \
           -t "$ACCESS_TOKEN" \
@@ -74,4 +79,5 @@ runs:
           -p "$PLATFORM" \
           -b "$BRANCH" \
           -u "$BASE_URL" \
-          -m "$MODULE"
+          -m "$MODULE" \
+          -P "$MODULE_PATH"
