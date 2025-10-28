@@ -26,6 +26,10 @@ inputs:
     description: 'Base URL of the git platform'
     required: false
     default: 'https://github.com'
+  module:
+    description: 'Module name for monorepo setups (optional)'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -60,6 +64,7 @@ runs:
         COVERAGE_FILE: ${{ inputs.coverage_file }}
         PLATFORM: ${{ inputs.platform }}
         BASE_URL: ${{ inputs.base_url }}
+        MODULE: ${{ inputs.module }}
       run: |
         bash upload_coverage.sh \
           -t "$ACCESS_TOKEN" \
@@ -68,4 +73,5 @@ runs:
           -f "$COVERAGE_FILE" \
           -p "$PLATFORM" \
           -b "$BRANCH" \
-          -u "$BASE_URL"
+          -u "$BASE_URL" \
+          -m "$MODULE"
