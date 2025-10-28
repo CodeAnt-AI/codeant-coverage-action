@@ -56,6 +56,7 @@ jobs:
     api_base: https://api.codeant.ai
     platform: github
     base_url: https://github.com
+    module: backend  # Optional: for monorepo setups
 ```
 
 ## Inputs
@@ -67,6 +68,7 @@ jobs:
 | `api_base` | CodeAnt AI API base URL | No | `https://api.codeant.ai` |
 | `platform` | Git platform (github, gitlab, bitbucket) | No | `github` |
 | `base_url` | Base URL of the git platform | No | `https://github.com` |
+| `module` | Module name for monorepo setups (optional) | No | `''` |
 
 ## Supported Coverage Formats
 
